@@ -30,7 +30,7 @@
 | shipment_source_id     | integer   | null: false                    |
 | delivery_day_id        | integer   | null: false                    |
 | price                  | integer   | null: false                    |
-| user_id                | reference | null: false, foreign_key: true |
+| user                   | reference | null: false, foreign_key: true |
 
 ### Association
 
@@ -42,35 +42,22 @@
 
 | Column    | Type      | Options                        |
 | --------- | --------- | ------------------------------ |
-| user_id   | reference | null: false, foreign_key: true |
-| item_id   | reference | null: false, foreign_key: true |
+| user      | reference | null: false, foreign_key: true |
+| item      | reference | null: false, foreign_key: true |
 
 ### Association
 
 - belongs_to :user
 - belongs_to :item
-- has_one :card
 - has_one :buyer_address
 
 
-## cards テーブル
-
-| Column              | Type      | Options                        |
-| ------------------- | --------- | ------------------------------ |
-| purchase_history_id | reference | null: false, foreign_key: true |
-| card_number         | integer   | null: false                    |
-| expiration_date     | integer   | null: false                    |
-| security_code       | integer   | null: false                    |
-
-### Association
-
-- belongs_to :purchase_history
 
 ## buyer_address テーブル
 
 | Column                | Type      | Options                        |
 | --------------------- | --------- | ------------------------------ |
-| purchase_history_id   | reference | null: false, foreign_key: true |
+| purchase_history      | reference | null: false, foreign_key: true |
 | postal_code           | string    | null: false                    |
 | prefecture_id         | integer   | null: false                    |
 | city                  | string    | null: false                    |
