@@ -2,48 +2,48 @@
 
 ## users テーブル
 
-| Column             | Type    | Options     |
-| ------------------ | ------  | ----------- |
-| email              | string  | null: false |
-| encrypted_password | string  | null: false |
-| nickname           | string  | null: false |
-| first_name         | string  | null: false |
-| last_name          | string  | null: false |
-| first_name_kana    | string  | null: false |
-| last_name_kana     | string  | null: false |
-| birthday           | date    | null: false |
+| Column             | Type    | Options                   |
+| ------------------ | ------  | ------------------------- |
+| email              | string  | null: false, unique: true |
+| encrypted_password | string  | null: false               |
+| nickname           | string  | null: false               |
+| first_name         | string  | null: false               |
+| last_name          | string  | null: false               |
+| first_name_kana    | string  | null: false               |
+| last_name_kana     | string  | null: false               |
+| birthday           | date    | null: false               |
 
 ### Association
 
 - has_many :items
-- has_many :purchase_history
+- has_many :purchase_histories
 
 ## items テーブル
 
-| Column              | Type      | Options                        |
-| ------------------- | --------- | ------------------------------ |
-| name                | string    | null: false                    |
-| about               | text      | null: false                    |
-| category            | string    | null: false                    |
-| status              | string    | null: false                    |
-| delivery_fee_burden | string    | null: false                    |
-| shipment_source     | string    | null: false                    |
-| delivery_day        | string    | null: false                    |
-| price               | integer   | null: false                    |
-| user                | reference | null: false, foreign_key: true |
+| Column                 | Type      | Options                        |
+| ---------------------- | --------- | ------------------------------ |
+| name                   | string    | null: false                    |
+| about                  | text      | null: false                    |
+| category_id            | integer   | null: false                    |
+| status_id              | integer   | null: false                    |
+| delivery_fee_burden_id | integer   | null: false                    |
+| shipment_source_id     | integer   | null: false                    |
+| delivery_day_id        | integer   | null: false                    |
+| price                  | integer   | null: false                    |
+| user_id                | reference | null: false, foreign_key: true |
 
 ### Association
 
-- belongs_to :users
+- belongs_to :user
 - has_one :purchase_history
 
 
 ## purchase_history テーブル
 
-| Column | Type      | Options                        |
-| ------ | --------- | ------------------------------ |
-| user   | reference | null: false, foreign_key: true |
-| item   | reference | null: false, foreign_key: true |
+| Column    | Type      | Options                        |
+| --------- | --------- | ------------------------------ |
+| user_id   | reference | null: false, foreign_key: true |
+| item_id   | reference | null: false, foreign_key: true |
 
 ### Association
 
@@ -55,12 +55,12 @@
 
 ## cards テーブル
 
-| Column           | Type      | Options                        |
-| ---------------- | --------- | ------------------------------ |
-| purchase_history | reference | null: false, foreign_key: true |
-| card_number      | integer   | null: false                    |
-| expiration_date  | integer   | null: false                    |
-| security_code    | integer   | null: false                    |
+| Column              | Type      | Options                        |
+| ------------------- | --------- | ------------------------------ |
+| purchase_history_id | reference | null: false, foreign_key: true |
+| card_number         | integer   | null: false                    |
+| expiration_date     | integer   | null: false                    |
+| security_code       | integer   | null: false                    |
 
 ### Association
 
@@ -70,14 +70,13 @@
 
 | Column                | Type      | Options                        |
 | --------------------- | --------- | ------------------------------ |
-| purchase_history      | reference | null: false, foreign_key: true |
+| purchase_history_id   | reference | null: false, foreign_key: true |
 | postal_code           | string    | null: false                    |
 | prefecture_id         | integer   | null: false                    |
 | city                  | string    | null: false                    |
 | address_line_block    | string    | null: false                    |
 | address_line_building | string    |                                |
 | phone_number          | string    | null: false                    |
-| 
 
 ### Association
 
