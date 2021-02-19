@@ -2,40 +2,43 @@
 
 ## users テーブル
 
-| Column          | Type    | Options     |
-| --------------- | ------  | ----------- |
-| email           | string  | null: false |
-| password        | string  | null: false |
-| nickname        | string  | null: false |
-| full_width_name | string  | null: false |
-| half_size_name  | string  | null: false |
-| birthday        | integer | null: false |
+| Column             | Type    | Options     |
+| ------------------ | ------  | ----------- |
+| email              | string  | null: false |
+| encrypted_password | string  | null: false |
+| nickname           | string  | null: false |
+| first_name         | string  | null: false |
+| last_name          | string  | null: false |
+| first_name_kana    | string  | null: false |
+| last_name_kana     | string  | null: false |
+| birthday           | date    | null: false |
 
 ### Association
 
-- has_many :user_items
-- has_many :items, through: user_items
+- has_many :items
+- has_many :purchase_history
 
 ## items テーブル
 
-| Column              | Type    | Options     |
-| ------------------- | ------  | ----------- |
-| item_name           | string  | null: false |
-| item_about          | text    | null: false |
-| category            | string  | null: false |
-| status              | string  | null: false |
-| delivery_fee_burden | string  | null: false |
-| shipment_source     | string  | null: false |
-| delivery_day        | string  | null: false |
-| price               | integer | null: false |
+| Column              | Type      | Options                        |
+| ------------------- | --------- | ------------------------------ |
+| name                | string    | null: false                    |
+| about               | text      | null: false                    |
+| category            | string    | null: false                    |
+| status              | string    | null: false                    |
+| delivery_fee_burden | string    | null: false                    |
+| shipment_source     | string    | null: false                    |
+| delivery_day        | string    | null: false                    |
+| price               | integer   | null: false                    |
+| user                | reference | null: false, foreign_key: true |
 
 ### Association
 
-- has_many :user_items
-- has_many :users, through: user_items
+- belongs_to :users
+- has_one :purchase_history
 
 
-## user_items テーブル
+## purchase_history テーブル
 
 | Column | Type      | Options                        |
 | ------ | --------- | ------------------------------ |
@@ -52,29 +55,30 @@
 
 ## cards テーブル
 
-| Column          | Type      | Options                        |
-| --------------- | --------- | ------------------------------ |
-| user            | reference | null: false, foreign_key: true |
-| card_number     | integer   | null: false                    |
-| expiration_date | integer   | null: false                    |
-| security_code   | integer   | null: false                    |
+| Column           | Type      | Options                        |
+| ---------------- | --------- | ------------------------------ |
+| purchase_history | reference | null: false, foreign_key: true |
+| card_number      | integer   | null: false                    |
+| expiration_date  | integer   | null: false                    |
+| security_code    | integer   | null: false                    |
 
 ### Association
 
-- belongs_to :user_item 
+- belongs_to :purchase_history
 
 ## buyer_address テーブル
 
-| Column        | Type      | Options                        |
-| ------------- | --------- | ------------------------------ |
-| user          | reference | null: false, foreign_key: true |
-| postal_code   | integer   | null: false                    |
-| prefecture    | string    | null: false                    |
-| city          | string    | null: false                    |
-| address_line1 | string    | null: false                    |
-| address_line2 | string    | null: false                    |
-| phone_number  | integer   | null: false                    |
+| Column                | Type      | Options                        |
+| --------------------- | --------- | ------------------------------ |
+| purchase_history      | reference | null: false, foreign_key: true |
+| postal_code           | string    | null: false                    |
+| prefecture_id         | integer   | null: false                    |
+| city                  | string    | null: false                    |
+| address_line_block    | string    | null: false                    |
+| address_line_building | string    |                                |
+| phone_number          | string    | null: false                    |
+| 
 
 ### Association
 
-- belongs_to :user_item
+- belongs_to : purchase_history
