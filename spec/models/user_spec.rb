@@ -86,8 +86,46 @@ RSpec.describe User, type: :model do
 
     it 'passwordが英数字混合していなければ登録できない' do
       @user.password = '111111'
+      @user.password_confirmation = '111111'
       @user.valid?
       expect(@user.errors.full_messages).to include 'Password is invalid'
+    end
+
+    it 'emailは、@がないと登録できない' do
+      @user.email = 'test.com'
+      @user.valid?
+      expect(@user.errors.full_messages).to include "Email is invalid"
+    end
+
+    it 'first_nameは漢字、ひらがな、カタカナ以外で登録できない' do
+      @user.first_name = 'test'
+      @user.valid?
+      expect(@user.errors.full_messages).to include "First name is invalid"
+    end
+
+    it 'last_nameは漢字、ひらがな、カタカナ以外で登録できない' do
+      @user.last_name = 'test'
+      @user.valid?
+      expect(@user.errors.full_messages).to include "Last name is invalid"
+    end
+
+    it 'first_name_kanaは、全角カタカナ以外では登録できない' do
+      @user.first_name_kana = 'test'
+      @user.valid?
+      expect(@user.errors.full_messages).to include "First name kana is invalid"
+    end
+
+    it 'last_name_kanaは、全角カタカナ以外では登録できない' do
+      @user.last_name_kana = 'test'
+      @user.valid?
+      expect(@user.errors.full_messages).to include "Last name kana is invalid"
+    end
+
+    it 'passwordは、全角では登録できない' do
+      @user.password = 'hoge１１'
+      @user.password_confirmation = 'hoge１１'
+      @user.valid?
+      expect(@user.errors.full_messages).to include "Password is invalid"
     end
   end
 end
