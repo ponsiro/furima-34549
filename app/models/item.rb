@@ -14,6 +14,8 @@ class Item < ApplicationRecord
     validates :user, foreign_key: true
   end
 
+  has_one_attached :image
+
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :category
   belongs_to :stutas
