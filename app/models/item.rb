@@ -8,7 +8,7 @@ class Item < ApplicationRecord
     validates :delivery_fee_burden_id, numericality: { other_than: 1 }
     validates :shipment_source_id, numericality: { other_than: 1 }
     validates :delivery_day_id, numericality: { other_than: 1 }
-    validates :price
+    validates :price, numericality: {greater_than: 300,less_than: 9999999}
   end
 
   has_one_attached :image
