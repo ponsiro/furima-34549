@@ -1,5 +1,4 @@
 class Item < ApplicationRecord
-
   with_options presence: true do
     validates :name, length: { maximum: 40 }
     validates :about, length: { maximum: 1000 }
@@ -11,7 +10,7 @@ class Item < ApplicationRecord
       validates :shipment_source_id
       validates :delivery_day_id
     end
-    validates :price, numericality: {greater_than: 300,less_than: 9999999}, format: { with: /\A[0-9]+\z/ }
+    validates :price, numericality: { greater_than: 300, less_than: 9_999_999 }, format: { with: /\A[0-9]+\z/ }
   end
 
   belongs_to :user
@@ -22,5 +21,5 @@ class Item < ApplicationRecord
   belongs_to :status
   belongs_to :delivery_fee_burden
   belongs_to :shipment_source
-  belongs_to :delivery_day 
+  belongs_to :delivery_day
 end

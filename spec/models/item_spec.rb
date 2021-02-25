@@ -67,38 +67,37 @@ RSpec.describe Item, type: :model do
     it 'userが空なら登録できない' do
       @item.user = nil
       @item.valid?
-      expect(@item.errors.full_messages).to include "User must exist"
+      expect(@item.errors.full_messages).to include 'User must exist'
     end
 
     it 'priceが全角数字なら登録できない' do
       @item.price = '２２２２２２'
       @item.valid?
-      expect(@item.errors.full_messages).to include "Price is not a number"
+      expect(@item.errors.full_messages).to include 'Price is not a number'
     end
 
     it 'priceが300より小さいなら登録できない' do
       @item.price = '222'
       @item.valid?
-      expect(@item.errors.full_messages).to include "Price must be greater than 300"
+      expect(@item.errors.full_messages).to include 'Price must be greater than 300'
     end
 
     it 'priceが9999999より大きいなら登録できない' do
       @item.price = '1000000000'
       @item.valid?
-      expect(@item.errors.full_messages).to include "Price must be less than 9999999"
+      expect(@item.errors.full_messages).to include 'Price must be less than 9999999'
     end
 
     it 'nameが40文字より多いと登録できない' do
       @item.name = 's' * 41
       @item.valid?
-      expect(@item.errors.full_messages).to include "Name is too long (maximum is 40 characters)"
+      expect(@item.errors.full_messages).to include 'Name is too long (maximum is 40 characters)'
     end
 
     it 'aboutが1000文字より多いと登録できない' do
       @item.about = 's' * 1001
       @item.valid?
-      expect(@item.errors.full_messages).to include "About is too long (maximum is 1000 characters)"
+      expect(@item.errors.full_messages).to include 'About is too long (maximum is 1000 characters)'
     end
-
   end
 end
