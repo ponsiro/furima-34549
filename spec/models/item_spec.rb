@@ -73,17 +73,18 @@ RSpec.describe Item, type: :model do
     it 'priceが全角数字なら登録できない' do
       @item.price = '２２２２２２'
       @item.valid?
+      binding.pry
       expect(@item.errors.full_messages).to include 'Price is not a number'
     end
 
     it 'priceが300より小さいなら登録できない' do
-      @item.price = '222'
+      @item.price = 222
       @item.valid?
       expect(@item.errors.full_messages).to include 'Price must be greater than or equal to 300'
     end
 
     it 'priceが9999999より大きいなら登録できない' do
-      @item.price = '1000000000'
+      @item.price = 1000000000
       @item.valid?
       expect(@item.errors.full_messages).to include 'Price must be less than or equal to 9999999'
     end
@@ -133,13 +134,13 @@ RSpec.describe Item, type: :model do
     it 'priceが半角英数字混合では出品できない' do
       @item.price = '333aaa'
       @item.valid?
+      binding.pry
       expect(@item.errors.full_messages).to include 'Price is not a number'
     end
 
     it 'priceが半角英字のみでは出品できない' do
       @item.price = 'aiueo'
       @item.valid?
-      binding.pry
       expect(@item.errors.full_messages).to include 'Price is not a number'
     end
   end
