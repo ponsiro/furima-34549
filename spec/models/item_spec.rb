@@ -79,13 +79,13 @@ RSpec.describe Item, type: :model do
     it 'priceが300より小さいなら登録できない' do
       @item.price = '222'
       @item.valid?
-      expect(@item.errors.full_messages).to include 'Price must be greater than 300'
+      expect(@item.errors.full_messages).to include "Price must be greater than or equal to 300"
     end
 
     it 'priceが9999999より大きいなら登録できない' do
       @item.price = '1000000000'
       @item.valid?
-      expect(@item.errors.full_messages).to include 'Price must be less than 9999999'
+      expect(@item.errors.full_messages).to include "Price must be less than or equal to 9999999"
     end
 
     it 'nameが40文字より多いと登録できない' do
@@ -99,5 +99,49 @@ RSpec.describe Item, type: :model do
       @item.valid?
       expect(@item.errors.full_messages).to include 'About is too long (maximum is 1000 characters)'
     end
+
+    it 'category_idが1だと出品できない' do
+      @item.category_id = 1
+      @item.valid?
+      expect(@item.errors.full_messages).to include "Category must be other than 1"
+    end
+
+    it 'status_idが1だと出品できない' do
+      @item.status_id = 1
+      @item.valid?
+      expect(@item.errors.full_messages).to include "Status must be other than 1"
+    end
+
+    it 'delivery_fee_burden_idが1だと出品できない' do
+      @item.delivery_fee_burden_id = 1
+      @item.valid?
+      expect(@item.errors.full_messages).to include "Delivery fee burden must be other than 1"
+    end
+
+    it 'shipment_source_idが1だと出品できない' do
+      @item.shipment_source_id = 1
+      @item.valid?
+      expect(@item.errors.full_messages).to include "Shipment source must be other than 1"
+    end
+
+    it 'delivery_day_idが1だと出品できない' do
+      @item.delivery_day_id = 1
+      @item.valid?
+      expect(@item.errors.full_messages).to include "Delivery day must be other than 1"
+    end
+
+    it 'priceが半角英数字混合では出品できない' do
+      @item.price = '333aaa'
+      @item.valid?
+      expect(@item.errors.full_messages).to include "Price is not a number"
+    end
+
+    it 'priceが半角英字のみでは出品できない' do
+      @item.price = 'aiueo'
+      @item.valid?
+      binding.pry
+      expect(@item.errors.full_messages).to include "Price is not a number"
+    end
+
   end
 end
