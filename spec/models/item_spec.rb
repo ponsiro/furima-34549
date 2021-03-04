@@ -73,7 +73,6 @@ RSpec.describe Item, type: :model do
     it 'priceが全角数字なら登録できない' do
       @item.price = '２２２２２２'
       @item.valid?
-      binding.pry
       expect(@item.errors.full_messages).to include 'Price is not a number'
     end
 
@@ -134,7 +133,6 @@ RSpec.describe Item, type: :model do
     it 'priceが半角英数字混合では出品できない' do
       @item.price = '333aaa'
       @item.valid?
-      binding.pry
       expect(@item.errors.full_messages).to include 'Price is not a number'
     end
 
