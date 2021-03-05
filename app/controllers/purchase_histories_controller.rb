@@ -45,7 +45,6 @@ class PurchaseHistoriesController < ApplicationController
   end
 
   def check_item_order
-    @item = Item.find(params[:item_id])
     if @item.purchase_history != nil
       redirect_to root_path
     end
