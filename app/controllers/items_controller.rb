@@ -24,6 +24,7 @@ class ItemsController < ApplicationController
   end
 
   def edit
+    redirect_to root_path if @item.purchase_history != nil
   end
 
   def update
@@ -53,4 +54,6 @@ class ItemsController < ApplicationController
   def user_restrictions
     redirect_to root_path if current_user.id != @item.user_id
   end
+
+  
 end
