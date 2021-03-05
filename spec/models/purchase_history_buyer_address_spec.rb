@@ -56,10 +56,16 @@ RSpec.describe PurchaseHistoryBuyerAddress, type: :model do
       @purchase_history_buyer_address.valid?
       expect(@purchase_history_buyer_address.errors.full_messages).to include "Phone number is invalid"
     end
-    it 'phone_numberが10桁の数値なら購入できないこと' do
+    it 'phone_numberが11桁以下の数値なら購入できないこと' do
       @purchase_history_buyer_address.phone_number = '0123456789'
       @purchase_history_buyer_address.valid?
       expect(@purchase_history_buyer_address.errors.full_messages).to include "Phone number is invalid"
+    end
+
+    it 'token空なら購入できないこと' do
+      @purchase_history_buyer_address.token = ''
+      @purchase_history_buyer_address.valid?
+      expect(@purchase_history_buyer_address.errors.full_messages).to include "Token can't be blank"
     end
   end
 end
