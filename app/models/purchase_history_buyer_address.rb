@@ -1,6 +1,6 @@
 class PurchaseHistoryBuyerAddress
   include ActiveModel::Model
-  attr_accessor :user_id, :item_id, :postal_code, :shipment_source_id, :city, :address_line_block, :address_line_building, :phone_number
+  attr_accessor :user_id, :item_id, :postal_code, :shipment_source_id, :city, :address_line_block, :address_line_building, :phone_number, :token
 
   with_options presence: true do
     validates :user_id
@@ -10,6 +10,7 @@ class PurchaseHistoryBuyerAddress
     validates :city
     validates :address_line_block
     validates :phone_number, format: {with: /\A0[0-9]{10}\z/}
+    validates :token
   end
 
   def save
