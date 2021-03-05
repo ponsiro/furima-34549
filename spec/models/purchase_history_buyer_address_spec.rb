@@ -1,15 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe PurchaseHistoryBuyerAddress, type: :model do
-    before do
-      user = FactoryBot.create(:user)
-      item = FactoryBot.create(:item)
-      @purchase_history_buyer_address = FactoryBot.build(:purchase_history_buyer_address, user_id: user.id, item_id: item.id)
-      sleep 0.1
-    end
+  before do
+    user = FactoryBot.create(:user)
+    item = FactoryBot.create(:item)
+    @purchase_history_buyer_address = FactoryBot.build(:purchase_history_buyer_address, user_id: user.id, item_id: item.id)
+    sleep 0.1
+  end
 
   describe '商品購入機能' do
-    it "全て正しく入力されていれば購入できる" do
+    it '全て正しく入力されていれば購入できる' do
       expect(@purchase_history_buyer_address).to be_valid
     end
     it 'postal_codeが空なら購入できないこと' do
@@ -20,7 +20,7 @@ RSpec.describe PurchaseHistoryBuyerAddress, type: :model do
     it 'postal_codeのハイフンがないと購入できないこと' do
       @purchase_history_buyer_address.postal_code = '1234567'
       @purchase_history_buyer_address.valid?
-      expect(@purchase_history_buyer_address.errors.full_messages).to include "Postal code is invalid"
+      expect(@purchase_history_buyer_address.errors.full_messages).to include 'Postal code is invalid'
     end
     it 'shipment_source_idが選択されていないと購入できないこと' do
       @purchase_history_buyer_address.shipment_source_id = ''
@@ -30,7 +30,7 @@ RSpec.describe PurchaseHistoryBuyerAddress, type: :model do
     it 'shipment_source_idが1だと購入できないこと' do
       @purchase_history_buyer_address.shipment_source_id = 1
       @purchase_history_buyer_address.valid?
-      expect(@purchase_history_buyer_address.errors.full_messages).to include "Shipment source must be other than 1"
+      expect(@purchase_history_buyer_address.errors.full_messages).to include 'Shipment source must be other than 1'
     end
     it 'cityが空なら購入できないこと' do
       @purchase_history_buyer_address.city = ''
@@ -54,12 +54,12 @@ RSpec.describe PurchaseHistoryBuyerAddress, type: :model do
     it 'phone_numberが0以外の数値から始まる11桁の数値では購入できないこと' do
       @purchase_history_buyer_address.phone_number = '11111111111'
       @purchase_history_buyer_address.valid?
-      expect(@purchase_history_buyer_address.errors.full_messages).to include "Phone number is invalid"
+      expect(@purchase_history_buyer_address.errors.full_messages).to include 'Phone number is invalid'
     end
     it 'phone_numberが11桁以下の数値なら購入できないこと' do
       @purchase_history_buyer_address.phone_number = '0123456789'
       @purchase_history_buyer_address.valid?
-      expect(@purchase_history_buyer_address.errors.full_messages).to include "Phone number is invalid"
+      expect(@purchase_history_buyer_address.errors.full_messages).to include 'Phone number is invalid'
     end
 
     it 'token空なら購入できないこと' do

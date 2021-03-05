@@ -25,9 +25,7 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    if  @array.include?(@item.id)
-      redirect_to root_path
-    end
+    redirect_to root_path if @array.include?(@item.id)
   end
 
   def update
@@ -66,5 +64,4 @@ class ItemsController < ApplicationController
       @array << i.item_id
     end
   end
-
 end
