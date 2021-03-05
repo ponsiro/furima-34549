@@ -46,11 +46,8 @@ class PurchaseHistoriesController < ApplicationController
 
   def check_item_order
     @item = Item.find(params[:item_id])
-    buy = PurchaseHistory.all
-    @array = []
-    buy.each do |i|
-      @array << i.item_id
+    if @item.purchase_history != nil
+      redirect_to root_path
     end
-    redirect_to root_path if @array.try(:include?, @item.id)
   end
 end

@@ -132,7 +132,7 @@
         <div class='item-img-content'>
           <%= image_tag item.image, class: "item-img" %> 
 
-          <% if  @array.include?(item.id) %>
+          <% if  item.purchase_history != nil %>
             <div class='sold-out'>
               <span>Sold Out!!</span>
             </div>
