@@ -2,6 +2,7 @@ class PurchaseHistoriesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_item
   before_action :check_user
+  before_action :check_item_order
 
   def index
     @purchase_history_buyer_address = PurchaseHistoryBuyerAddress.new
@@ -41,5 +42,15 @@ class PurchaseHistoriesController < ApplicationController
       card: purchase_history_params[:token],
       currency: 'jpy'
     )
+  end
+
+  def check_item_order
+    @item = Item.find(params[:item_id])
+    buy = PurchaseHistory.all
+    @array = []
+    buy.each do |i|
+      @array << i.item_id
+    end
+    redirect_to root_path if @array.try(:include?, @item.id)
   end
 end
