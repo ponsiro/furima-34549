@@ -75,6 +75,16 @@ RSpec.describe PurchaseHistoryBuyerAddress, type: :model do
         @purchase_history_buyer_address.valid?
         expect(@purchase_history_buyer_address.errors.full_messages).to include "Phone number is invalid"
       end
+      it 'user_idが空なら購入できないこと' do
+        @purchase_history_buyer_address.user_id = ''
+        @purchase_history_buyer_address.valid?
+        expect(@purchase_history_buyer_address.errors.full_messages).to include "User can't be blank"
+      end
+      it 'item_idが空なら購入できないこと' do
+        @purchase_history_buyer_address.item_id = ''
+        @purchase_history_buyer_address.valid?
+        expect(@purchase_history_buyer_address.errors.full_messages).to include "Item can't be blank"
+      end
     end
   end
 end
