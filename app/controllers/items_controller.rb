@@ -2,6 +2,7 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   before_action :set_item, only: [:show, :edit, :update, :destroy]
   before_action :user_restrictions, only: [:edit, :update, :destroy]
+  before_action :set_order_array, only: [:index, :show, :edit]
 
   def index
     @items = Item.all.order(created_at: :desc)
@@ -24,6 +25,9 @@ class ItemsController < ApplicationController
   end
 
   def edit
+    if  @array.include?(@item.id)
+      redirect_to root_path
+    end
   end
 
   def update
@@ -53,4 +57,14 @@ class ItemsController < ApplicationController
   def user_restrictions
     redirect_to root_path if current_user.id != @item.user_id
   end
+
+  def set_order_array
+    buy = PurchaseHistory.all
+    @array = []
+
+    buy.each do |i|
+      @array << i.item_id
+    end
+  end
+
 end
