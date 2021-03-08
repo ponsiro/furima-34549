@@ -52,7 +52,6 @@
 - has_one :buyer_address
 
 
-
 ## buyer_address テーブル
 
 | Column                | Type      | Options                        |
